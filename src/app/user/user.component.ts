@@ -1,7 +1,10 @@
-import { Component, computed, EventEmitter, Input, input, Output, output } from '@angular/core';
-import { DUMMY_USERS } from "../dummy-users";
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length)
+interface User {
+  id: string;
+  name: string;
+  avatar: string;
+}
 
 @Component({
   selector: 'app-user',
@@ -12,20 +15,19 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length)
 })
 export class UserComponent {
   // Not Using Signals:
-  @Input({ required: true }) id!: string;
-  @Input({ required: true }) avatar!: string;
-  @Input({ required: true }) name!: string;
-  //@Output() selectUser = new EventEmitter();
+  @Input({ required: true }) user!: User;
+  @Output() selectUser = new EventEmitter<string>();
+
   //This is not a signal, It's same as top but it's not need a decorator so it's better & newer
-  selectUser = output<string>();
+  //selectUser = output<string>();
 
   //Not Using Signal (Using Getter):
   get imgPath() {
-    return "assets/users/" + this.avatar
+    return "assets/users/" + this.user.avatar
   }
 
   onSelectUser() {
-    this.selectUser.emit(this.id);
+    this.selectUser.emit(this.user.id);
   }
 
 
