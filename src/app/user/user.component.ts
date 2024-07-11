@@ -11,6 +11,7 @@ import { User } from './user.model';
 export class UserComponent {
   // Not Using Signals:
   @Input({ required: true }) user!: User;
+  @Input({ required: true }) isSelected!: boolean;
   @Output() selectUser = new EventEmitter<string>();
 
   //This is not a signal, It's same as top but it's not need a decorator so it's better & newer
