@@ -1,12 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { TaskComponent } from "./task/task.component";
 import { dummyTasks } from "../dummy-tasks";
-
-interface User {
-  id: string;
-  name: string;
-  avatar: string;
-}
+import { User } from '../user/user.model';
 
 @Component({
   selector: 'app-tasks',
