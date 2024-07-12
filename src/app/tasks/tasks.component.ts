@@ -3,6 +3,7 @@ import { TaskComponent } from "./task/task.component";
 import { dummyTasks } from "../dummy-tasks";
 import { type User } from '../user/user.model';
 import { NewTaskComponent } from "./new-task/new-task.component";
+import { type NewTaskData } from './task/task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -12,7 +13,7 @@ import { NewTaskComponent } from "./new-task/new-task.component";
   styleUrl: './tasks.component.css'
 })
 export class TasksComponent {
-  @Input({ required: true }) user?: User;
+  @Input({ required: true }) user!: User;
   isAddingTask = false;
 
   tasks = dummyTasks
@@ -31,5 +32,16 @@ export class TasksComponent {
 
   onCancelAddTask(){
     this.isAddingTask = false;
+  }
+
+  onAddTask(taskData: NewTaskData){
+    this.tasks.unshift({
+      id: new Date().getTime().toString(),
+      userId: this.user.id,
+      title: taskData.title,
+      summary: taskData.summary,
+      dueDate: taskData.date
+    })
+    this.isAddingTask = false
   }
 }
